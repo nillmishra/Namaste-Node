@@ -1,19 +1,20 @@
 const express = require('express');
 const app = express();
+const {adminAuth, userAuth} = require('./middleware/auth');
 
-// Home route
-app.get("/", (req, res) => {
-    res.send("Hello from Dashboard");
+
+
+app.use("/admin", adminAuth);
+app.get("/user", userAuth, (req, res) => {
+    res.send("User route final");
 });
 
-// Test route
-app.get("/test", (req, res) => {
-    res.send("Hello from test");
+app.get('/admin/getAllData', (req, res) => {
+    res.send("Admin get all data");
 });
 
-// Hello route
-app.get("/hello", (req, res) => {
-    res.send("Hello from hello");
+app.get('/admin/deleteUser', (req, res) => {
+    res.send("Admin delete user");
 });
 
 // Start server
